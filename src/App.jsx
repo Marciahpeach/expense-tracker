@@ -61,6 +61,7 @@ function App() {
                   <td>{exp.category}</td>
                   <td>{exp.amount}</td>
                   <td>{exp.date}</td>
+                  <button className='btn'>Delete</button>
                 </tr>
               ))}
             </tbody>

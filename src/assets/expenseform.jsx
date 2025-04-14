@@ -22,7 +22,6 @@ function ExpenseForm({ addExpense }) {
 
     addExpense(newExpense);
 
-    // Clear form
     setName("");
     setDescription("");
     setCategory("");

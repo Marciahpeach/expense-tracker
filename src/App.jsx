@@ -3,13 +3,17 @@ import './App.css';
 import Header from './assets/header';
 import ExpenseForm from './assets/expenseform';
 
-
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const addExpense = (expense) => {
-    setExpenses([...expenses, expense]);
+    // Add a unique id to each expense
+    setExpenses([...expenses, { ...expense, id: Date.now() }]);
+  };
+
+  const deleteExpense = (id) => {
+    setExpenses(expenses.filter(expense => expense.id !== id));
   };
 
   const filteredExpenses = expenses.filter((expense) => {
@@ -25,9 +29,8 @@ function App() {
 
   return (
     <div>
-
       <div className="expense-search">
-        <Header/>
+        <Header />
         <input
           type="text"
           className='searchbar'
@@ -35,7 +38,7 @@ function App() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-      <ExpenseForm addExpense={addExpense} />
+        <ExpenseForm addExpense={addExpense} />
       </div>
 
       <div className="expense-table">
@@ -51,17 +54,25 @@ function App() {
                 <th>Category</th>
                 <th>Amount</th>
                 <th>Date</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {filteredExpenses.map((exp, index) => (
-                <tr key={index}>
+              {filteredExpenses.map((exp) => (
+                <tr key={exp.id}>
                   <td>{exp.name}</td>
                   <td>{exp.description}</td>
                   <td>{exp.category}</td>
                   <td>{exp.amount}</td>
                   <td>{exp.date}</td>
-                  <button className='btn'>Delete</button>
+                  <td>
+                    <button
+                      className="delete-btn"
+                      onClick={() => deleteExpense(exp.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -73,6 +84,3 @@ function App() {
 }
 
 export default App;
-
-
-

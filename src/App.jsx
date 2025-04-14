@@ -8,7 +8,6 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const addExpense = (expense) => {
-    // Add a unique id to each expense
     setExpenses([...expenses, { ...expense, id: Date.now() }]);
   };
 
